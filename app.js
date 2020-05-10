@@ -8,33 +8,24 @@ const fs = require('fs');
 
 module.exports = app.listen(3000);
 
-app.get('/hashtag/:tag/:num', function(req, res){
+app.get('/hashtag/:tag/:num/:proxy', function(req, res){ 
+    (async () => {
+        try {
+            tag = req.params.tag;
+            num = parseInt(req.params.num);
+            proxy = req.params.proxy;
+            const posts = await TikTokScraper.hashtag(tag, { number: num, proxy:proxy, filetype:`json`});
 
-    tag = req.params.tag
-    num = parseInt( req.params.num)
+            console.log(posts);
+            res.send(posts)
 
-    const hashtag = TikTokScraper.hashtagEvent(tag, { number: num, filetype:true});
-    hashtag.on('data', json => {
-        try{
-            let data = JSON.stringify(json);
-            fs.writeFile(tag+'.json', data, function(err, result) {
-                if(err) console.log('error', err);
-              });
+        } catch (error) {
+            console.log(error);
         }
-        catch(err){
-            console.log(err)
-        }
-        res.send(json)
-
-    
-    });
-    hashtag.on('done', () => {
-    });
-    hashtag.on('error', error => {
-    });
-
-    hashtag.scrape();
+    })();
 })
+
+
 
 
 
