@@ -6,35 +6,34 @@ app.use(express.json())
 const TikTokScraper = require('tiktok-scraper');
 const fs = require('fs');
 
-module.exports = app.listen(3000);
+var port = process.env.port || 3000
+module.exports = app.listen(port, ()=>{
+    console.log("node server is listening!")
+});
 
-app.get('/hashtag/:tag/:num', function(req, res){
+app.get('/tiktok/search', function(req, res){ 
+    (async () => {
+        try {
 
-    tag = req.params.tag
-    num = parseInt( req.params.num)
+            tag = req.query.tag;
+            num = parseInt(req.query.num);
+            proxy = req.query.proxy;
+            const posts = await TikTokScraper.hashtag(tag, { number: 1, filetype:`json`});
 
-    const hashtag = TikTokScraper.hashtagEvent(tag, { number: num, filetype:true});
-    hashtag.on('data', json => {
-        try{
-            let data = JSON.stringify(json);
-            fs.writeFile(tag+'.json', data, function(err, result) {
-                if(err) console.log('error', err);
-              });
+            console.log(posts);
+            res.send(posts)
+
+        } catch (error) {
+            console.log(error);
         }
-        catch(err){
-            console.log(err)
-        }
-        res.send(json)
-
-    
-    });
-    hashtag.on('done', () => {
-    });
-    hashtag.on('error', error => {
-    });
-
-    hashtag.scrape();
+    })();
 })
+
+app.get('/', (req,res) =>{
+    res.send("Server from aws is working!")
+})
+
+
 
 
 
