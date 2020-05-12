@@ -4,7 +4,6 @@ var app=express()
 app.use(express.json())
 
 const TikTokScraper = require('tiktok-scraper');
-const fs = require('fs');
 
 var port = process.env.port || 3000
 module.exports = app.listen(port, ()=>{
