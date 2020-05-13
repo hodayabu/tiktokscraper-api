@@ -17,7 +17,7 @@ app.get('/tiktok/search', function(req, res){
             tag = req.query.tag;
             num = parseInt(req.query.num);
             proxy = req.query.proxy;
-            const posts = await TikTokScraper.hashtag(tag, { number: 1, filetype:`json`});
+            const posts = await TikTokScraper.hashtag(tag, { number: num, filetype:`json`});
 
             console.log(posts);
             res.send(posts)
