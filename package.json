@@ -8,7 +8,7 @@
     "start": "node app.js"
   },
   "dependencies": {
-    "express": "^4.16.1",
+    "express": "^4.17.1",
     "tiktok-scraper": "^1.1.10"
   }
 }
