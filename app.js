@@ -5,7 +5,8 @@ app.use(express.json())
 
 const TikTokScraper = require('tiktok-scraper');
 
-var port = process.env.port || 3003
+//var port = process.env.port || 3003
+var port = 3003
 module.exports = app.listen(port, ()=>{
     console.log("node server is listening!")
 });
@@ -17,7 +18,7 @@ app.get('/tiktok/search', function(req, res){
             tag = req.query.tag;
             num = parseInt(req.query.num);
             proxy = req.query.proxy;
-            const posts = await TikTokScraper.hashtag(tag, { number: num, proxy:proxy, filetype:`json`});
+            const posts = await TikTokScraper.hashtag(tag, { number: num, proxy: proxy, filetype:`na`});
 
             console.log(posts);
             res.send(posts)
@@ -28,8 +29,25 @@ app.get('/tiktok/search', function(req, res){
     })();
 })
 
+app.get('/tiktok/channel', function(req, res){ 
+    (async () => {
+        try {
+            username = req.query.username;
+            num = parseInt(req.query.num);
+            proxy = req.query.proxy;
+            const posts = await TikTokScraper.user(username, { number: num, proxy: proxy });
+            console.log(posts);
+            res.send(posts);
+        } catch (error) {
+            console.log(error);
+        }
+    })();
+})
+
+
+
 app.get('/', (req,res) =>{
-    res.send("Server from aws is working!")
+    res.send("Use full route url for info!")
 })
 
 
