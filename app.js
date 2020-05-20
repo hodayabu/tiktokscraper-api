@@ -5,8 +5,7 @@ app.use(express.json())
 
 const TikTokScraper = require('tiktok-scraper');
 
-//var port = process.env.port || 3003
-var port = 3003
+var port = process.env.port || 3003
 module.exports = app.listen(port, ()=>{
     console.log("node server is listening!")
 });
