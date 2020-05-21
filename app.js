@@ -34,7 +34,7 @@ app.get('/tiktok/channel', function(req, res){
             username = req.query.username;
             num = parseInt(req.query.num);
             proxy = req.query.proxy;
-            const posts = await TikTokScraper.user(username, { number: num, proxy: proxy });
+            const posts = await TikTokScraper.user(username, { number: num});
             console.log(posts);
             res.send(posts);
         } catch (error) {
