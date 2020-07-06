@@ -13,7 +13,6 @@ module.exports = app.listen(port, ()=>{
 app.get('/tiktok/search', function(req, res){ 
     (async () => {
         try {
-
             tag = req.query.tag;
             num = parseInt(req.query.num);
             //proxy = req.query.proxy;
