@@ -16,11 +16,8 @@ app.get('/tiktok/search', function(req, res){
 
             tag = req.query.tag;
             num = parseInt(req.query.num);
-            proxy = req.query.proxy;
-            // if (proxy===null || proxy===""||proxy === undefined||proxy==="null"){
-            //     proxy='';
-            // }
-            const posts = await TikTokScraper.hashtag(tag, { number: num, filetype:`na`});
+            //proxy = req.query.proxy;
+            const posts = await TikTokScraper.hashtag(tag, { number: num});
             console.log(posts);
             res.send(posts)
         } catch (error) {
@@ -35,7 +32,7 @@ app.get('/tiktok/channel', function(req, res){
             username = req.query.username;
             console.log(username)
             num = parseInt(req.query.num);
-            proxy = req.query.proxy;
+            //proxy = req.query.proxy;
             const posts = await TikTokScraper.user(username, { number: num});
             console.log(posts);
             res.send(posts);
