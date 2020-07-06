@@ -17,13 +17,13 @@ app.get('/tiktok/search', function(req, res){
             tag = req.query.tag;
             num = parseInt(req.query.num);
             proxy = req.query.proxy;
-            if (proxy==null || proxy==''){
+            if (proxy==null || proxy==""||proxy == undefined){
                 const posts = await TikTokScraper.hashtag(tag, { number: num, filetype:`na`});
             }
             else{
                 const posts = await TikTokScraper.hashtag(tag, { number: num, proxy:proxy, filetype:`na`});
             }
-            console.log("use with proxy:    " + proxy);
+            console.log("use with proxy:    *" + proxy+"*");
             console.log(posts);
             res.send(posts)
 
