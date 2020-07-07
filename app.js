@@ -16,7 +16,8 @@ app.get('/tiktok/search', function(req, res){
             tag = req.query.tag;
             num = parseInt(req.query.num);
             proxy = req.query.proxy;
-            const posts = await TikTokScraper.hashtag(tag, { number: num, proxy:proxy});
+            agent = req.query.agent;
+            const posts = await TikTokScraper.hashtag(tag, { number: num, proxy:proxy, userAgent:agent});
             console.log(posts);
             res.send(posts)
         } catch (error) {
@@ -24,6 +25,21 @@ app.get('/tiktok/search', function(req, res){
         }
     })();
 })
+
+app.get('/tiktok/video', function(req, res){
+    (async () => {
+        try {
+            video = req.query.video;
+            proxy = req.query.proxy;
+            const meta_data = await TikTokScraper.getVideoMeta(video, {proxy:proxy});
+            console.log(meta_data);
+            res.send(meta_data)
+        } catch (error) {
+            console.log(error);
+        }
+    })();
+})
+
 
 app.get('/tiktok/channel', function(req, res){ 
     (async () => {
@@ -41,7 +57,6 @@ app.get('/tiktok/channel', function(req, res){
         }
     })();
 })
-
 
 
 app.get('/', (req,res) =>{
